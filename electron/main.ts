@@ -1,4 +1,7 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
+
+import * as fs from 'fs';
+
 import path from 'node:path'
 
 // The built directory structure
@@ -44,3 +47,32 @@ app.on('window-all-closed', () => {
 })
 
 app.whenReady().then(createWindow)
+const getAppDataPath = () => {
+  const userDataPath = app.getPath('userData'); // Получаем путь к AppData
+  const filePath = path.join(userDataPath, 'knowledgeBase.json');
+  return filePath;
+};
+
+// Команда для сохранения данных
+ipcMain.handle('SAVE_DATA', async (_, data) => {
+  try {
+    const filePath = getAppDataPath();
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+  } catch (error) {
+    return error;
+  }
+});
+
+// Команда для загрузки данных
+ipcMain.handle('LOAD_DATA', async () => {
+  try {
+    const filePath = getAppDataPath();
+    if (!fs.existsSync(filePath)) {
+      return undefined;
+    }
+    const data = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    return undefined;
+  }
+});

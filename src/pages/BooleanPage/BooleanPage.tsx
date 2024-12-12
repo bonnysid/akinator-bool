@@ -239,7 +239,7 @@ export const BooleanPage: FC = () => {
             Удалить
           </button>
           <button className={cx('button', 'clear')} onClick={() => setExpressionArr([])}>
-            Отчистить
+            Очистить
           </button>
         </div>
         <div className={cx('controls')}>

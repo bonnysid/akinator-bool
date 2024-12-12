@@ -91,6 +91,15 @@ window.onmessage = ev => {
   ev.data.payload === 'removeLoading' && removeLoading()
 }
 
+export const API = {
+  saveData: async (data: any): Promise<{ success: boolean; error?: any }> => {
+    return ipcRenderer.invoke('SAVE_DATA', data);
+  },
+  loadData: async (): Promise<{ success: boolean; data?: any; error?: any }> => {
+    return ipcRenderer.invoke('LOAD_DATA');
+  },
+};
+
 contextBridge.exposeInMainWorld('electronAPI', {
   saveData: (data: any) => ipcRenderer.invoke('SAVE_DATA', data),
   loadData: () => ipcRenderer.invoke('LOAD_DATA'),

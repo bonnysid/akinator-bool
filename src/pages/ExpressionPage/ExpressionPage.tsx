@@ -394,7 +394,7 @@ export const ExpressionPage: FC = () => {
             Удалить
           </button>
           <button className={cx('button', 'clear')} onClick={handleClear}>
-            Отчистить
+            Очистить
           </button>
         </div>
         <div className={cx('controls')}>

@@ -44,13 +44,8 @@ const initialKnowledgeBase: TreeNode = {
 
 export const AkinatorPage: FC = () => {
   // Загружаем данные из localStorage при монтировании
-  const [knowledge, setKnowledge] = useState<TreeNode>(() => {
-    const savedData = localStorage.getItem('knowledgeBase');
-    if (savedData) {
-      return JSON.parse(savedData);
-    }
-    return initialKnowledgeBase;
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [knowledge, setKnowledge] = useState<TreeNode>();
 
   const [step, setStep] = useState(AkinatorSteps.START);
   const [animalName, setAnimalName] = useState<string>('');
@@ -58,9 +53,41 @@ export const AkinatorPage: FC = () => {
   const [history, setHistory] = useState<AnswerVariants[]>([]);
   const [currentNode, setCurrentNode] = useState<TreeNode | undefined>(knowledge);
 
-  // Сохраняем изменения базы знаний при каждом обновлении
+  const loadKnowledge = async () => {
+    try {
+      setIsLoading(true);
+      const data = await (window as any).electronAPI.loadData();
+
+      if (!data) {
+        setKnowledge(initialKnowledgeBase)
+        setCurrentNode(initialKnowledgeBase)
+      } else {
+        setKnowledge(data);
+        setCurrentNode(data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const saveKnowledge = async (knowledge: TreeNode) => {
+    try {
+      await (window as any).electronAPI.saveData(knowledge);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-    localStorage.setItem('knowledgeBase', JSON.stringify(knowledge));
+    loadKnowledge(); // Загружаем данные при монтировании
+  }, []);
+
+  useEffect(() => {
+    if (knowledge) {
+      saveKnowledge(knowledge); // Сохраняем изменения базы знаний при каждом обновлении
+    }
   }, [knowledge]);
 
   const handleClickNextStep = () => {
@@ -171,35 +198,35 @@ export const AkinatorPage: FC = () => {
   const renderedButtons = useMemo(() => {
     switch (step) {
       case AkinatorSteps.START:
-        return <Button text="Начнем" onClick={handleClickNextStep} variant={ButtonVariants.BLUR} />
+        return <Button text="Начнем" onClick={handleClickNextStep} variant={ButtonVariants.BLUR} disabled={isLoading} />
       case AkinatorSteps.QUESTIONS:
         return (
           <div className={cx('buttons')}>
-            <Button text="Нет" onClick={() => handleClickAnswer(AnswerVariants.NO)} variant={ButtonVariants.BLUR} />
-            <Button text="Да" onClick={() => handleClickAnswer(AnswerVariants.YES)} variant={ButtonVariants.BLUR} />
+            <Button text="Нет" onClick={() => handleClickAnswer(AnswerVariants.NO)} variant={ButtonVariants.BLUR} disabled={isLoading} />
+            <Button text="Да" onClick={() => handleClickAnswer(AnswerVariants.YES)} variant={ButtonVariants.BLUR} disabled={isLoading} />
           </div>
         )
       case AkinatorSteps.ANSWER:
         return (
           <div className={cx('buttons')}>
-            <Button text="Нет" onClick={() => handleClickFinalAnswer(AnswerVariants.NO)} variant={ButtonVariants.BLUR} />
-            <Button text="Да" onClick={() => handleClickFinalAnswer(AnswerVariants.YES)} variant={ButtonVariants.BLUR} />
+            <Button text="Нет" onClick={() => handleClickFinalAnswer(AnswerVariants.NO)} variant={ButtonVariants.BLUR} disabled={isLoading} />
+            <Button text="Да" onClick={() => handleClickFinalAnswer(AnswerVariants.YES)} variant={ButtonVariants.BLUR} disabled={isLoading} />
           </div>
         )
       case AkinatorSteps.GOOD_ANSWER:
         return (
           <div className={cx('buttons')}>
-            <Button text="Давай" onClick={() => playAgain()} variant={ButtonVariants.BLUR} />
+            <Button text="Давай" onClick={() => playAgain()} variant={ButtonVariants.BLUR} disabled={isLoading} />
           </div>
         )
       case AkinatorSteps.BAD_ANSWER:
         return (
           <div className={cx('buttons')}>
-            <Button text="Готово" onClick={handleClickReady} variant={ButtonVariants.BLUR} />
+            <Button text="Готово" onClick={handleClickReady} variant={ButtonVariants.BLUR} disabled={isLoading} />
           </div>
         )
     }
-  }, [step, handleClickNextStep, handleClickReady, handleClickAnswer, playAgain]);
+  }, [step, handleClickNextStep, handleClickReady, handleClickAnswer, playAgain, isLoading]);
 
   const text = useMemo(() => {
     switch (step) {
@@ -228,8 +255,6 @@ export const AkinatorPage: FC = () => {
         return WaveBackgroundVariant.DEFAULT;
     }
   }, [step]);
-
-  console.log(variant)
 
   return (
     <div className={cx('game-page')}>
