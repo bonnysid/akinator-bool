@@ -1,0 +1,33 @@
+.container {
+  --tab-font: var(--font-title-r-14);
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border-bottom: 1px solid var(--color-border-primary);
+  transition: border-color .2s ease, opacity .2s ease;
+
+  &:hover, &:active {
+    border-bottom: 1px solid var(--color-border-secondary);
+    --tab-font: var(--font-title-sb-14);
+  }
+
+  &.isActive {
+    border-bottom: 2px solid var(--color-button-pressed-primary);
+    --tab-font: var(--font-title-sb-14);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    --tab-font: var(--font-title-r-14);
+  }
+}
+
+.icon {
+  color: var(--color-icon-primary);
+}
+
+.text {
+  font: var(--tab-font);
+}

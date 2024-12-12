@@ -1,0 +1,78 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: var(--font-title-r-14);
+  transition: background-color .2s, color .2s;
+  color: var(--color-text-primary);
+  border-radius: var(--RoundingM);
+  position: relative;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &.isToday {
+    color: var(--color-button-hover-primary);
+  }
+
+  &:hover {
+    background-color: var(--color-hover-tertiary);
+  }
+
+  &.selected {
+    font: var(--font-title-sb-14);
+    color: var(--color-text-extra);
+    background-color: var(--color-button-normal-primary);
+  }
+
+  &.rangeStart {
+    font: var(--font-title-sb-14);
+    background-color: var(--color-button-normal-primary);
+    color: var(--color-text-extra);
+    border-radius: 6px 0px 0px 6px;
+  }
+
+  &.rangeEnd {
+    font: var(--font-title-sb-14);
+    background-color: var(--color-button-normal-primary);
+    color: var(--color-text-extra);
+    border-radius: 0px 6px 6px 0px;
+  }
+
+  &.rangeDay {
+    border-radius: 0;
+    background-color: var(--color-active-tertiary);
+  }
+
+  &:disabled {
+    color: var(--color-text-tertiary);
+    background-color: transparent;
+  }
+
+  &.disabledCross {
+    color: var(--color-text-tertiary);
+    background-color: var(--color-bg-primary);
+
+    & span {
+      opacity: 0.5;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      height: 1px;
+      width: 100%;
+      background-color: var(--color-divider-primary);
+    }
+  }
+
+  &.months {
+    border-radius: 6px;
+  }
+
+  &.hidden {
+    opacity: 0;
+  }
+}

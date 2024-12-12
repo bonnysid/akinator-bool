@@ -1,0 +1,137 @@
+.itemControls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.body {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  width: 100%;
+  transition: background-color 0.2s, color 0.2s;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+  align-items: center;
+
+  .wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    min-width: 0;
+  }
+  .text {
+    font: var(--font-title-r-14);
+    color: var(--color-text-primary);
+  }
+  .icon {
+    display: flex;
+    flex-shrink: 0;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .chevron {
+    transform: rotate(0deg);
+  }
+
+  &:active {
+    color: var(--color-text-info);
+  }
+
+  &:hover,
+  &.popupOpened {
+    background-color: var(--color-active-tertiary);
+  }
+
+  &.isActive {
+    background-color: var(--color-active-tertiary);
+    color: var(--color-text-info);
+    &:not(.isHoldsPopup) {
+      cursor: default;
+      pointer-events: none;
+    }
+    .text {
+      font-weight: 600;
+    }
+    .chevron {
+      transform: rotate(180deg);
+      color: var(--color-icon-secondary);
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    .text,
+    .icon {
+      opacity: 0.4;
+    }
+  }
+
+  &.isSubItem {
+    display: flex;
+    padding: 4px 8px 4px 12px;
+    border-radius: 6px;
+
+    .wrapper {
+      gap:  6px;
+      &::before {
+        content: '';
+        width: 4px;
+        height: 4px;
+        margin: 10px;
+        background-color: transparent;
+        border-radius: 50%;
+      }
+    }
+
+    .text {
+      font: var(--font-title-r-14);
+      color: var(--color-text-primary);
+    }
+
+    &.isActive {
+      background-color: var(--color-active-tertiary);
+      .text {
+        font: var(--font-title-sb-14);
+        color: var(--color-text-info);
+      }
+
+      .wrapper::before {
+        background-color: currentColor;
+      }
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.subItems {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  div {
+    margin-bottom: 0;
+  }
+}
+
+.subWrapper {
+  margin: 8px 0;
+}
+
+.isHoldsPopup {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: currentColor;
+    right:  6px;
+    bottom:  6px;
+    border-radius: 50%;
+  }
+}

@@ -1,0 +1,110 @@
+.waveContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,255,0,0.4), rgba(0,0,0,0) 80%);
+    animation: rotateGradient 10s infinite linear, hueRotation 20s infinite linear;
+    mix-blend-mode: screen;
+    max-width: 500px;
+  }
+
+  &::after {
+    animation-duration: 15s, 20s; /* Для rotateGradient и hueRotation разные времена */
+    animation-direction: reverse;
+    background: radial-gradient(circle, rgba(0,255,100,0.5), rgba(0,0,0,0) 80%);
+  }
+
+  &::before {
+    filter: blur(100px);
+  }
+
+  &::after {
+    filter: blur(200px);
+  }
+
+  &.bad {
+    &::before,
+    &::after {
+      /* Заменим градиенты на более красные тона */
+      background: radial-gradient(circle, rgba(255,0,0,0.4), rgba(0,0,0,0) 80%);
+      animation: rotateGradient 10s infinite linear, hueRotationRed 20s infinite linear;
+    }
+
+    &::after {
+      background: radial-gradient(circle, rgba(255,50,50,0.5), rgba(0,0,0,0) 80%);
+    }
+  }
+
+  &.good {
+    &::before,
+    &::after {
+      /* Заменим градиенты на более красные тона */
+      background: radial-gradient(circle, rgba(8, 255, 0, 0.4), rgba(0,0,0,0) 80%);
+      animation: rotateGradient 10s infinite linear, hueRotationRed 20s infinite linear;
+    }
+
+    &::after {
+      background: radial-gradient(circle, rgba(50, 255, 77, 0.5), rgba(0,0,0,0) 80%);
+    }
+  }
+
+  &.neutral {
+    &::before,
+    &::after {
+      /* Заменим градиенты на более красные тона */
+      background: radial-gradient(circle, rgba(211, 211, 211, 0.4), rgba(0,0,0,0) 80%);
+      animation: rotateGradient 10s infinite linear, hueRotationRed 20s infinite linear;
+    }
+
+    &::after {
+      background: radial-gradient(circle, rgba(143, 143, 143, 0.5), rgba(0,0,0,0) 80%);
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  color: var(--color-text-primary);
+  font-size: 24px;
+  line-height: 32px;
+  max-width: 400px;
+  text-align: center;
+  z-index: 1;
+}
+
+@keyframes rotateGradient {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes hueRotation {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}

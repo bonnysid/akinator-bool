@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 268px;
+  min-width: 268px;
+}
+
+.popup {
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.datesContainer {
+  padding: 16px;
+}

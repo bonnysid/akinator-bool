@@ -1,0 +1,101 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.controller {
+  --input-controller-bg: var(--color-bg-secondary);
+  --input-controller-border-color: var(--color-border-primary);
+  --input-color: var(--color-text-primary);
+
+  &:hover {
+    --input-controller-border-color: var(--color-border-secondary);
+  }
+
+  &:active {
+    --input-controller-border-color: var(--color-border-tertiary);
+  }
+
+  &.isFocused {
+    --input-controller-border-color: var(--color-border-tertiary);
+  }
+
+  &.disabled {
+    --input-controller-border-color: var(--color-border-primary);
+    --input-controller-bg: var(--color-bg-primary);
+  }
+
+  &.large {
+    --input-controller-padding: 8px 12px;
+    --input-controller-height: 40px;
+
+    &.withControls {
+      --input-controller-padding: 0 0 0 12px;
+    }
+  }
+
+  &.medium {
+    --input-controller-padding: 4px 8px;
+    --input-controller-height: 32px;
+
+    &.withControls {
+      --input-controller-padding: 0 0 0 8px;
+    }
+  }
+
+  &.isError {
+    --input-controller-border-color: var(--color-error-primary);
+    --input-controller-border-color-hover: var(--color-error-primary);
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance:none;
+  }
+
+  input {
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      background: var(--input-controller-bg);
+      -webkit-box-shadow: 0 0 0 2000px var(--input-controller-bg) inset;
+      caret-color: var(--input-color);
+      -webkit-text-fill-color: var(--input-color);
+      color: var(--input-color);
+    }
+  }
+
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 4px;
+  border-radius: var(--RoundingM);
+  background-color: var(--input-controller-bg);
+  border: 1px solid var(--input-controller-border-color);
+  padding: var(--input-controller-padding);
+  height: var(--input-controller-height);
+  overflow: hidden;
+  transition: background-color .2s, border-color .2s, opacity .2s;
+}
+
+.field {
+  width: 100%;
+  font: var(--font-title-r-14);
+  background: transparent;
+  color: var(--color-text-primary);
+
+  &::placeholder {
+    color: var(--color-text-tertiary);
+  }
+}

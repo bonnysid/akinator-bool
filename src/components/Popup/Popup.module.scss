@@ -1,0 +1,18 @@
+.popup {
+  background-color: var(--color-bg-primary);
+  box-shadow: var(--shadow-primary);
+  border-radius: 8px;
+
+  &.s {
+    padding: 2rem 0;
+  }
+  &.m {
+    padding: 3rem;
+  }
+  &.l {
+    padding: 4rem;
+  }
+  &.xl {
+    padding: 6rem;
+  }
+}

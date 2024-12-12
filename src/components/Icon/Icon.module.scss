@@ -1,0 +1,56 @@
+.icon {
+  display: flex;
+  flex-shrink: 0;
+  --icon-size-xs: 12px;
+  --icon-size-s: 14px;
+  --icon-size-m: 16px;
+  --icon-size-l: 18px;
+  --icon-size-xl: 24px;
+  --icon-size-xxl: 36px;
+  --icon-size-xxxl: 60px;
+
+  &.isControl {
+    cursor: pointer;
+    color: var(--color-icon-primary);
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--color-icon-secondary);
+    }
+  }
+
+  &_xs {
+    width: var(--icon-size-xs);
+    height: var(--icon-size-xs);
+  }
+
+  &_s {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+  }
+
+  &_m {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+  }
+
+  &_l {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+  }
+
+  &_xl {
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+  }
+
+  &_xxl {
+    width: var(--icon-size-xxl);
+    height: var(--icon-size-xxl);
+  }
+
+  &_xxxl {
+    width: var(--icon-size-xxxl);
+    height: var(--icon-size-xxxl);
+  }
+}

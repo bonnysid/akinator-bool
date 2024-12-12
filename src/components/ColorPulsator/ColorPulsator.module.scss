@@ -1,0 +1,22 @@
+@keyframes color {
+  0% {
+    background-color: var(--color-active-secondary);
+  }
+
+  50% {
+    background-color: var(--color-button-pressed-secondary);
+  }
+
+  100% {
+    background-color: var(--color-active-secondary);
+  }
+}
+
+.colorPulsator {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-active-secondary);
+  animation-name: color;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}

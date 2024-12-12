@@ -1,0 +1,8 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 184px;
+  border-left: 1px solid var(--color-divider-primary);
+  gap: 8px;
+  padding: 16px;
+}

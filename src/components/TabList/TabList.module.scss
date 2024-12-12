@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  width: 100%;
+  position: relative;
+
+  &:before {
+    content: "";
+    display: flex;
+    height: 1px;
+    min-height: 1px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid var(--color-border-primary);
+  }
+}
